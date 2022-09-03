@@ -28,6 +28,50 @@ const keys = document.querySelector('.calculator-buttons');
         displayText: '0',
         prevTotal: null,
         parseInput(value){
+            //have any of the "special buttons" been clicked
+            switch (value){
+                case '=':
+                    this.calcAnswer(this.displayText)
+                    break;
+                case 'AC':
+                    //clear screen and stored values
+                    break;
+                case '.':
+                    if (this.displayText == 0){
+                        this.addText('0.')
+                    } else {
+                        this.addText(value)
+                    }
+                    break;
+                default:
+                    this.addText(value)
+                    break;
+            }      
+            
+        
+        },
+
+        addText(value) {
+            if(this.displayText === '0'){
+                this.displayText = ''
+            }else if (this.prevTotal !== null){
+                this.displayText = this.prevTotal
+                this.prevTotal = null
+            }
+            if(isNaN(+(value)) && isNaN(+(this.displayText))) {
+                if(isNaN(this.displayText.slice(-1))){
+                    return;
+                }
+
+            }
+            this.displayText += value
+            this.outputText(this.displayText)
+        },
+        outputText(text){
+            document.querySelector('.calculator-screen').value = text
+        },
+
+        calcAnswer(equation){
             
         }
     }
