@@ -27,6 +27,7 @@ const keys = document.querySelector('.calculator-buttons');
     const calculator = {
         displayText: '0',
         prevTotal: null,
+
         parseInput(value){
             //have any of the "special buttons" been clicked
             switch (value){
@@ -34,7 +35,7 @@ const keys = document.querySelector('.calculator-buttons');
                     this.calcAnswer(this.displayText)
                     break;
                 case 'AC':
-                    //clear screen and stored values
+                    this.clearAll()
                     break;
                 case '.':
                     if (this.displayText == 0){
@@ -72,6 +73,13 @@ const keys = document.querySelector('.calculator-buttons');
         },
 
         calcAnswer(equation){
-            
+            let result = Function('return ' + equation)()
+            this.outputText(result)
+        },
+
+        clearAll(){
+            this.displayText = '0',
+            this.prevTotal = null
+            this.outputText(this.displayText)
         }
     }
